@@ -36,17 +36,17 @@ export default class Pokemon extends Component {
         // console.log(this.state)
         const { name, type, hp, sprite } = this.props.pokemon;
         const { move } = this.state
-        const { attack } = this.props
+        // const { attack } = this.props
 
         return (
             <div className='pokemon'>
                 <img src={ sprite } alt='Pokemon Sprite'/>
                 <div className='pokemon-info'>
-                    <h2>Name: { this.capitalizeFirst(name) } </h2>
-                    <h2>Type: { this.capitalizeFirst(type) } </h2>
-                    <h2>HP: { hp } </h2>
+                    <h2 className='pokemon-info__text'>{ this.capitalizeFirst(name) } </h2>
+                    <h4 className='pokemon-info__text'>{ this.capitalizeFirst(type) } </h4>
+                    <h4 className='pokemon-info__text'>HP: { hp } </h4>
+                    <button type='button' className='pokemon-info__attack' onClick={this.attack}> { move ? move.name : null } </button>
                 </div>
-                <button type='button' className='pokemon-attack' onClick={this.attack}> { move ? move.name : null } </button>
             </div>
         )
     }

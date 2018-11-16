@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Pokemon GB';
+  src: url("./fonts/PokemonGB.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pokemon Solid';
+  src: url("./fonts/PokemonSolidNormal.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/*# sourceMappingURL=fonts.css.map */
