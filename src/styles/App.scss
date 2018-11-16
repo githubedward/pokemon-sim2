@@ -14,7 +14,7 @@ body {
 #disclosure {
     font-size: .90rem;
     margin-top: .75rem;
-    color: white;
+    color: black;
 }
 
 #header {
@@ -29,8 +29,8 @@ body {
 .App {
     background-color: rgb(140, 141, 143);
     padding: 1rem 5rem 5rem 5rem;
-    height: 100vh;
-    width: 100vw;
+    // height: 100vh;
+    // width: 100vw;
 }
 
 .battlefield {
@@ -38,7 +38,7 @@ body {
     padding: 2rem;
     display: flex;
     justify-content: space-between;
-    height: 85%;
+    height: 100%;
     width: 100%;
 
     audio {
@@ -59,18 +59,19 @@ body {
         height: 100%
     }
 
-    .pokemon:nth-child(2) {
-        align-self: flex-end;
-    }
+    // .pokemon:nth-child(2) {
+    //     align-self: flex-end;
+    // }
 
-    .pokemon:nth-child(3) {
-        text-align: right;
-    }
+    // .pokemon:nth-child(3) {
+    //     text-align: right;
+    // }
 
     .pokemon {
         z-index: 9999;
-        // display: flex;
-        // flex-direction: column;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
         img {
             width: 10rem;
         }

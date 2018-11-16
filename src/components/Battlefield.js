@@ -21,12 +21,14 @@ export default class Battlefield extends Component {
                 pokemon1: {
                     number: 2,
                     name: data.name,
+                    initialHp: Number(data.stats[5].base_stat),
                     hp: Number(data.stats[5].base_stat),
                     baseAtk: Number(data.stats[4].base_stat),
                     baseDef: Number(data.stats[3].base_stat),
                     type: data.types[0].type.name,
                     sprite: data.sprites.back_default,
-                    moveUrl: data.moves[this.getRandomIndex(data.moves.length - 1)].move.url,
+                    // moveUrl: data.moves[this.getRandomIndex(data.moves.length - 1)].move.url,
+                    moveUrl: [data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url]
                 }
             })
         })
@@ -35,12 +37,14 @@ export default class Battlefield extends Component {
                 pokemon2: {
                     number: 1,
                     name: data.name,
+                    initialHp: Number(data.stats[5].base_stat),
                     hp: Number(data.stats[5].base_stat),
                     baseAtk: Number(data.stats[4].base_stat),
                     baseDef: Number(data.stats[3].base_stat),
                     type: data.types[0].type.name,
                     sprite: data.sprites.front_default,
-                    moveUrl: data.moves[this.getRandomIndex(data.moves.length - 1)].move.url,
+                    // moveUrl: data.moves[this.getRandomIndex(data.moves.length - 1)].move.url,
+                    moveUrl: [data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url]
                 }
             })
         })
@@ -56,13 +60,13 @@ export default class Battlefield extends Component {
                 this.setState({
                     pokemon2: {
                         ...defLess,
-                        baseDef: Math.floor(this.state.pokemon2.def + 5)
+                        baseDef: Math.floor(this.state.pokemon2.baseDef + 5)
                     }
                 })
             } else {
                 const hpLess = Object.assign({}, pokemon2);
                 delete hpLess.hp;
-                let damage = (pokemon1.baseAtk * childDmg/100) * (pokemon2.baseDef/100)
+                let damage = Number((pokemon1.baseAtk * childDmg/100) * (pokemon2.baseDef * .25))
                 this.setState({
                     pokemon2: {
                         ...hpLess,
@@ -85,7 +89,7 @@ export default class Battlefield extends Component {
                 } else {
                     const hpLess = Object.assign({}, pokemon1);
                     delete hpLess.hp;
-                    let damage = (pokemon2.baseAtk * childDmg/100) * (pokemon1.baseDef/100)
+                    let damage = Number((pokemon2.baseAtk * childDmg/100) - (pokemon1.baseDef * .25))
                     this.setState({
                         pokemon1: {
                             ...hpLess,
@@ -103,10 +107,9 @@ export default class Battlefield extends Component {
                 <div className='background'></div>
                 { this.state.pokemon1 ? <Pokemon pokemon={this.state.pokemon1} attack={this.attack} /> : null }
                 { this.state.pokemon2 ? <Pokemon pokemon={this.state.pokemon2} attack={this.attack} /> : null }
-                <audio controls autoPlay loop>
-                    {/* <source src='Assets/Music/107 - battle.mp3'  type='audio/mpeg' /> */}
+                {/* <audio controls autoPlay loop>
                     <source src={battleMusic}  type='audio/mpeg' />
-                </audio>
+                </audio> */}
             </div>
         )
     }

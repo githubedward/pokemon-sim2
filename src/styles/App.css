@@ -29,7 +29,7 @@ body {
 #disclosure {
   font-size: .90rem;
   margin-top: .75rem;
-  color: white;
+  color: black;
 }
 
 #header {
@@ -44,8 +44,6 @@ body {
 .App {
   background-color: #8c8d8f;
   padding: 1rem 5rem 5rem 5rem;
-  height: 100vh;
-  width: 100vw;
 }
 
 .battlefield {
@@ -57,7 +55,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  height: 85%;
+  height: 100%;
   width: 100%;
 }
 
@@ -79,17 +77,18 @@ body {
   height: 100%;
 }
 
-.battlefield .pokemon:nth-child(2) {
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-}
-
-.battlefield .pokemon:nth-child(3) {
-  text-align: right;
-}
-
 .battlefield .pokemon {
   z-index: 9999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .battlefield .pokemon img {
