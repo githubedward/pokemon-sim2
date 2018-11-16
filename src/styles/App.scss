@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+}
+
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+.App {
+    background-color: rgb(124, 177, 221);
+    padding: 5rem;
+    height: 100vh;
+    width: 100vw;
+}
+
+.battlefield {
+    background-color: white;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+
+    .pokemon:first-child {
+        align-self: flex-end;
+    }
+
+    .pokemon:last-child {
+        text-align: right;
+        &-attack:disabled {
+            background-color: rgba(0, 0, 0, 0.411)
+        }
+    }
+
+    .pokemon {
+        // display: flex;
+        // flex-direction: column;
+        img {
+            width: 25vw;
+        }
+        &-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-attack {
+            padding: 0 1rem;
+            width: fit-content;
+            height: 2rem;
+            font-size: 1rem;
+        }
+    }
+
+
+}
+
