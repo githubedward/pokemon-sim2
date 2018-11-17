@@ -42,19 +42,20 @@ export default class Pokemon extends Component {
     // }
 
     render(){
-        console.log(this.state)
+        // console.log(this.state)
         const attack = this.props.attack;
         const { name, type, hp, initialHp, sprite } = this.props.pokemon;
         const { moves } = this.state
         let movesJSX = '';
         if (moves) {
-            movesJSX = moves.map((move) => {
+            movesJSX = moves.map((move, index) => {
                 return <button type='button' className='pokemon-info__attack' 
+                key={index}
                 onClick={ () => attack(this.state.number, Number(move.power)) }
                 name = {move.name}
                 power = { Number(move.power) }
                 pp = {move.pp}
-                damageClass = {move.damage_class.name}
+                // damageClass = {move.damage_class.name}
                 > { move ? move.name : null } </button>
             })
         }
