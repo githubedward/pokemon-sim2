@@ -8,7 +8,7 @@ class App extends Component {
       <div className="App">
         <div id='header'>Pokemon</div>
         <Battlefield />
-        <div id='disclosure'>We don't own any rights on this game, fonts, pictures, sounds, videos or anything. This is only for learning purposes.</div>
+        <div id='disclosure'>We don't own any rights of this game. This is only for learning purposes.</div>
       </div>
     );
   }

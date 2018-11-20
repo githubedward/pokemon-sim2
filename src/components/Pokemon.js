@@ -5,26 +5,12 @@ import * as func from './functions';
 export default class Pokemon extends Component {
     state = {
         number: this.props.pokemon.number,
+        isTurn: this.props.pokemon.isTurn
     }
 
     capitalizeFirst = (str) => {
         return str[0].toUpperCase() + str.slice(1);
     }
-
-    // componentDidMount() {
-    //     const { moveUrl } = this.props.pokemon;
-    //     func.fetchRequest('GET', moveUrl, (move) => {
-    //         this.setState({
-    //             move: {
-    //                 number: this.props.pokemon.number,
-    //                 name: move.name,
-    //                 power: move.power,
-    //                 pp: move.pp,
-    //                 damageClass: move.damage_class.name
-    //             }
-    //         })
-    //     })
-    // }
 
     componentDidMount() {
         const { moveUrl } = this.props.pokemon;
@@ -36,27 +22,47 @@ export default class Pokemon extends Component {
         }))
     }
 
-    // attack = () => {
-    //     this.props.attack(this.state.number, this.state.move.power)
-    //     console.log(this.state.move.power)
-    // }
+    componentDidUpdate(prevProps) {
+        // debugger;
+        if (prevProps.pokemon.isTurn !== this.props.pokemon.isTurn) {
+            console.log(`pokemon-${this.state.number}'s turn!`);
+            this.setState({
+                isTurn: this.props.pokemon.isTurn  
+            })
+        }
+    }
 
     render(){
         // console.log(this.state)
         const attack = this.props.attack;
         const { name, type, hp, initialHp, sprite } = this.props.pokemon;
-        const { moves } = this.state
+        const { moves, isTurn } = this.state
+
         let movesJSX = '';
-        if (moves) {
+        if (moves && isTurn) {
             movesJSX = moves.map((move, index) => {
                 return <button type='button' className='pokemon-info__attack' 
                 key={index}
-                onClick={ () => attack(this.state.number, Number(move.power)) }
+                onClick={ () => attack(this.state.number, Number(move.power))}
+                // onClick={ () => {attack(this.state.number, Number(move.power))
+                //     this.setState({
+                //         isTurn: !this.state.isTurn
+                //     })}}
                 name = {move.name}
                 power = { Number(move.power) }
                 pp = {move.pp}
                 // damageClass = {move.damage_class.name}
                 > { move ? move.name : null } </button>
+            })
+        } else if (moves && !isTurn) {
+            movesJSX = moves.map((move, index) => {
+                return <div type='button' className='pokemon-info__attack--disabled pokemon-info__attack' 
+                key={index}
+                name = {move.name}
+                power = { Number(move.power) }
+                pp = {move.pp}
+                // damageClass = {move.damage_class.name}
+                > { move ? move.name : null } </div>
             })
         }
 
@@ -69,7 +75,6 @@ export default class Pokemon extends Component {
                     <h4 className='pokemon-info__text'>HP: { hp } </h4>
                     <progress className='pokemon-info__health' value={ hp } max={ initialHp }></progress>
                     { movesJSX }
-                    {/* <button type='button' className='pokemon-info__attack' onClick={this.attack}> { move ? move.name : null } </button> */}
                 </div>
             </div>
         )

@@ -19,6 +19,7 @@ export default class Battlefield extends Component {
         func.fetchRequest('GET', `${baseURL}/pokemon/${this.getRandomIndex(150)}/`, (data) => {
             this.setState({
                 pokemon1: {
+                    isTurn: true,
                     number: 2,
                     name: data.name,
                     initialHp: Number(data.stats[5].base_stat),
@@ -35,6 +36,7 @@ export default class Battlefield extends Component {
         func.fetchRequest('GET', `${baseURL}/pokemon/${this.getRandomIndex(150)}/`, (data) => {
             this.setState({
                 pokemon2: {
+                    isTurn: false,
                     number: 1,
                     name: data.name,
                     initialHp: Number(data.stats[5].base_stat),
@@ -53,25 +55,32 @@ export default class Battlefield extends Component {
     attack = (playerNumber, childPwr) => {
         console.log('clicked!')
         if (playerNumber === 2) {
-            const { pokemon2, pokemon1 } = this.state
+            const { pokemon2, pokemon1 } = this.state;
             if (!childPwr) {
-                const defLess = Object.assign({}, pokemon2);
-                delete defLess.baseDef;
+                // debugger;
                 this.setState({
                     pokemon2: {
-                        ...defLess,
-                        baseDef: Math.floor(this.state.pokemon2.baseDef + 5)
+                        ...pokemon2,
+                        baseDef: Math.floor(this.state.pokemon2.baseDef + 5),
+                        isTurn: !pokemon2.isTurn
+                    },
+                    pokemon1: {
+                        ...pokemon1,
+                        isTurn: !pokemon1.isTurn
                     }
                 })
             } else {
-                const hpLess = Object.assign({}, pokemon2);
-                delete hpLess.hp;
-                debugger;
-                let damage = Number((pokemon1.baseAtk * childPwr/100) - (pokemon2.baseDef * .25))
+                let damage = Number((pokemon1.baseAtk * childPwr/100) - (pokemon2.baseDef / 4));
+                // debugger;
                 this.setState({
                     pokemon2: {
-                        ...hpLess,
-                        hp: Math.floor(this.state.pokemon2.hp - damage <= 0 ? 0 : this.state.pokemon2.hp - damage)
+                        ...pokemon2,
+                        hp: Math.floor(this.state.pokemon2.hp - damage <= 0 ? 0 : this.state.pokemon2.hp - damage),
+                        isTurn: !pokemon2.isTurn
+                    },
+                    pokemon1: {
+                        ...pokemon1,
+                        isTurn: !pokemon1.isTurn
                     }
                 })
             }
@@ -79,23 +88,33 @@ export default class Battlefield extends Component {
             if (playerNumber === 1) {
                 const { pokemon2, pokemon1 } = this.state
                 if (!childPwr) {
-                    const defLess = Object.assign({}, pokemon1);
-                    delete defLess.baseDef;
+                    // debugger;
                     this.setState({
                         pokemon1: {
-                            ...defLess,
-                            baseDef: Math.floor(this.state.pokemon1.def + 5)
+                            ...pokemon1,
+                            baseDef: Math.floor(this.state.pokemon1.def + 5),
+                            isTurn: !pokemon1.isTurn
+                        },
+                        pokemon2: {
+                            ...pokemon2,
+                            isTurn: !pokemon2.isTurn
                         }
                     })
                 } else {
-                    const hpLess = Object.assign({}, pokemon1);
-                    delete hpLess.hp;
-                    debugger;
-                    let damage = Number((pokemon2.baseAtk * childPwr/100) - (pokemon1.baseDef * .25))
+                    // const hpLess = Object.assign({}, pokemon1);
+                    // delete hpLess.hp;
+                    // debugger;
+                    let damage = Number((pokemon2.baseAtk * childPwr/100) - (pokemon1.baseDef / 4));
+                    // debugger;
                     this.setState({
                         pokemon1: {
-                            ...hpLess,
-                            hp: Math.floor(this.state.pokemon1.hp - damage <= 0 ? 0 : this.state.pokemon1.hp - damage)
+                            ...pokemon1,
+                            hp: Math.floor(this.state.pokemon1.hp - damage <= 0 ? 0 : this.state.pokemon1.hp - damage),
+                            isTurn: !pokemon1.isTurn
+                        },
+                        pokemon2: {
+                            ...pokemon2,
+                            isTurn: !pokemon2.isTurn
                         }
                     })
                 }
@@ -104,6 +123,10 @@ export default class Battlefield extends Component {
     }
 
     render() {
+        if (this.state.pokemon1 && this.state.pokemon2) {
+            console.log('pokemon1: ', this.state.pokemon1.isTurn);
+            console.log('pokemon2: ', this.state.pokemon2.isTurn);
+        }
         return (
             <div className="battlefield">
                 <div className='background'></div>

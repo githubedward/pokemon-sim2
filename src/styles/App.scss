@@ -92,6 +92,10 @@ body {
                 height: 2rem;
                 font-size: 1rem;
                 font-family: 'Pokemon GB', sans-serif;
+
+                &--disabled {
+                    color: gray;
+                }
             }
         }
     }

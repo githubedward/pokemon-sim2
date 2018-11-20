@@ -123,4 +123,8 @@ body {
   font-size: 1rem;
   font-family: 'Pokemon GB', sans-serif;
 }
+
+.battlefield .pokemon-info__attack--disabled {
+  color: gray;
+}
 /*# sourceMappingURL=App.css.map */
