@@ -77,6 +77,7 @@ export default class Pokemon extends Component {
                     { movesJSX }
                 </div>
             </div>
+            
         )
     }
 }
