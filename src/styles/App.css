@@ -1,0 +1,169 @@
+@font-face {
+  font-family: 'Pokemon GB';
+  src: url("./fonts/PokemonGB.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pokemon Solid';
+  src: url("./fonts/PokemonSolidNormal.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Pokemon GB', sans-serif;
+  letter-spacing: -1px;
+}
+
+#disclosure {
+  font-size: .90rem;
+  margin-top: .75rem;
+  color: black;
+}
+
+#header {
+  font-family: 'Pokemon Solid';
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #db4848;
+  text-shadow: 1px 1px .5rem black;
+}
+
+.App {
+  z-index: -99;
+  background-color: #8c8d8f;
+}
+
+.opening {
+  background-image: url("../styles/ashpokemon.jpeg");
+  background-size: cover;
+  height: 100vh;
+}
+
+audio {
+  position: absolute;
+  height: 2rem;
+  top: 1rem;
+  visibility: hidden;
+}
+
+.battlefield {
+  position: relative;
+  padding: 1rem 5rem 5rem 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.battlefield .background-fire {
+  background-image: url("https://i.gifer.com/UMNG.gif");
+  background-position: bottom;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.battlefield .background-water {
+  background-image: url("https://pa1.narvii.com/6931/d3c894e2f4a5ebca4264f6794e8173b993291f52r1-500-250_hq.gif");
+  background-position: bottom;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.battlefield .background-electric {
+  background-image: url("https://media.giphy.com/media/PGehAVkb6Ghr2/giphy.gif");
+  background-position: bottom;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.battlefield .background-default {
+  background-image: url("https://i.imgur.com/mWOT6jS.gif");
+  background-position: bottom;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.battlefield .pokemon {
+  z-index: 9999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.battlefield .pokemon img {
+  width: 10rem;
+}
+
+.battlefield .pokemon-info {
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.623);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.battlefield .pokemon-info__text {
+  margin: .20rem 0;
+}
+
+.battlefield .pokemon-info__attack {
+  letter-spacing: -2px;
+  margin-top: .5rem;
+  padding: 0 1rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 2rem;
+  font-size: 1rem;
+  font-family: 'Pokemon GB', sans-serif;
+}
+/*# sourceMappingURL=App.css.map */
