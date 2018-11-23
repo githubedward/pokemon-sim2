@@ -3,11 +3,13 @@ import '../styles/App.css';
 import * as func from './functions';
 import Pokemon from './Pokemon';
 import battleMusic from '../styles/Music/107 - battle.mp3'
+import { Link } from 'react-router-dom'
 
 const baseURL = 'https://pokeapi.co/api/v2';
 
 export default class Battlefield extends Component {
     state = {
+        showPopup: false,
         pokemons: []
     }
 
@@ -52,6 +54,11 @@ export default class Battlefield extends Component {
         })
     }
 
+    // showPopup = () => {
+    //     this.setState({
+    //         showPopup: true,
+    //     })
+    // }
 
     componentDidUpdate() {
         if(this.state.pokemon2 && this.state.pokemon1) {
@@ -71,8 +78,9 @@ export default class Battlefield extends Component {
                             // moveUrl: data.moves[this.getRandomIndex(data.moves.length - 1)].move.url,
                             moveUrl: [data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url]
                         }
-                    })
-                })
+                    });
+                });
+                // this.showPopup();
             }else if(!this.state.pokemon2.hp) {
                 func.fetchRequest('GET', `${baseURL}/pokemon/${this.getRandomIndex(150)}/`, (data) => {
                     this.setState({
@@ -91,79 +99,87 @@ export default class Battlefield extends Component {
                         }
                     })
                 })
+                // this.showPopup();
             }
         }
     }
 
-attack = (playerNumber, childPwr) => {
-    console.log('clicked!')
-    if (playerNumber === 2) {
-        const { pokemon2, pokemon1 } = this.state;
-        if (!childPwr) {
-            // debugger;
-            this.setState({
-                pokemon2: {
-                    ...pokemon2,
-                    baseDef: Math.floor(this.state.pokemon2.baseDef + 5),
-                    isTurn: !pokemon2.isTurn
-                },
-                pokemon1: {
-                    ...pokemon1,
-                    isTurn: !pokemon1.isTurn
-                }
-            })
-        } else {
-            let damage = Number((pokemon1.baseAtk * childPwr/100) - (pokemon2.baseDef / 4));
-            // debugger;
-            this.setState({
-                pokemon2: {
-                    ...pokemon2,
-                    hp: Math.floor(this.state.pokemon2.hp - damage <= 0 ? 0 : this.state.pokemon2.hp - damage),
-                    isTurn: !pokemon2.isTurn
-                },
-                pokemon1: {
-                    ...pokemon1,
-                    isTurn: !pokemon1.isTurn
-                }
-            })
-        }
-    } else {
-        if (playerNumber === 1) {
-            const { pokemon2, pokemon1 } = this.state
+    attack = (playerNumber, childPwr) => {
+        console.log('clicked!')
+        if (playerNumber === 2) {
+            const { pokemon2, pokemon1 } = this.state;
             if (!childPwr) {
                 // debugger;
                 this.setState({
-                    pokemon1: {
-                        ...pokemon1,
-                        baseDef: Math.floor(this.state.pokemon1.def + 5),
-                        isTurn: !pokemon1.isTurn
-                    },
                     pokemon2: {
                         ...pokemon2,
+                        baseDef: Math.floor(this.state.pokemon2.baseDef + 5),
                         isTurn: !pokemon2.isTurn
+                    },
+                    pokemon1: {
+                        ...pokemon1,
+                        isTurn: !pokemon1.isTurn
                     }
                 })
             } else {
-                // const hpLess = Object.assign({}, pokemon1);
-                // delete hpLess.hp;
-                // debugger;
-                let damage = Number((pokemon2.baseAtk * childPwr/100) - (pokemon1.baseDef / 4));
+                let damage = Number((pokemon1.baseAtk * childPwr/100) - (pokemon2.baseDef / 4));
                 // debugger;
                 this.setState({
-                    pokemon1: {
-                        ...pokemon1,
-                        hp: Math.floor(this.state.pokemon1.hp - damage <= 0 ? 0 : this.state.pokemon1.hp - damage),
-                        isTurn: !pokemon1.isTurn
-                    },
                     pokemon2: {
                         ...pokemon2,
+                        hp: Math.floor(this.state.pokemon2.hp - damage <= 0 ? 0 : this.state.pokemon2.hp - damage),
                         isTurn: !pokemon2.isTurn
+                    },
+                    pokemon1: {
+                        ...pokemon1,
+                        isTurn: !pokemon1.isTurn
                     }
                 })
             }
+        } else {
+            if (playerNumber === 1) {
+                const { pokemon2, pokemon1 } = this.state
+                if (!childPwr) {
+                    // debugger;
+                    this.setState({
+                        pokemon1: {
+                            ...pokemon1,
+                            baseDef: Math.floor(this.state.pokemon1.def + 5),
+                            isTurn: !pokemon1.isTurn
+                        },
+                        pokemon2: {
+                            ...pokemon2,
+                            isTurn: !pokemon2.isTurn
+                        }
+                    })
+                } else {
+                    // const hpLess = Object.assign({}, pokemon1);
+                    // delete hpLess.hp;
+                    // debugger;
+                    let damage = Number((pokemon2.baseAtk * childPwr/100) - (pokemon1.baseDef / 4));
+                    // debugger;
+                    this.setState({
+                        pokemon1: {
+                            ...pokemon1,
+                            hp: Math.floor(this.state.pokemon1.hp - damage <= 0 ? 0 : this.state.pokemon1.hp - damage),
+                            isTurn: !pokemon1.isTurn
+                        },
+                        pokemon2: {
+                            ...pokemon2,
+                            isTurn: !pokemon2.isTurn
+                        }
+                    })
+                }
+            }
         }
     }
-}
+
+    renderPopUp() {
+        return <div className="gameover">
+        <button type='button'>Play Again</button>
+        <Link to='/opening'><button type='button' className='startbutton'>GIVE UP</button></Link>
+      </div>
+    }
 
     render() {
 
@@ -172,22 +188,27 @@ attack = (playerNumber, childPwr) => {
         if(this.state.pokemon1) {
             if(this.state.pokemon1.type == 'water') {
                 battlearena = 'background-water';
-            }
-            else if (this.state.pokemon1.type == 'electric'){
+            } else if (this.state.pokemon1.type == 'electric'){
                 battlearena = 'background-electric';
-            }
-            else if (this.state.pokemon1.type == 'fire') {
+            } else if (this.state.pokemon1.type == 'fire') {
                 battlearena = 'background-fire';
-            }
-            else {
+            } else if (this.state.pokemon1.type == 'flying') {
+                battlearena = 'background-flying';
+            } else if (this.state.pokemon1.type == 'ghost') {
+                battlearena = 'background-ghost';
+            } else if (this.state.pokemon1.type == 'ground') {
+                battlearena = 'background-ground';
+            } else if (this.state.pokemon1.type == 'ice') {
+                battlearena = 'background-ice';
+            } else {
                 battlearena = 'background-default';
             }
         }
 
         return (
-            <div>
+            <div className='battlefield'>
                 <div id='header'>Pokemon</div>
-                <div className="battlefield" >
+                <div className="battlefield-duel" >
                     <div className={battlearena}></div>
                     { this.state.pokemon1 ? <Pokemon pokemon={this.state.pokemon1} attack={this.attack} /> : null }
                     { this.state.pokemon2 ? <Pokemon pokemon={this.state.pokemon2} attack={this.attack} /> : null }

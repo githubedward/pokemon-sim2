@@ -7,13 +7,13 @@ export default class OpeningPage extends Component {
 
     return (
       <div className='opening'>
-      
-      <audio controls autoPlay loop>
-          <source src={openingMusic}  type='audio/mpeg' />
-      </audio>
-      
-          <h1>Pokemon Battle Game</h1>
+        <audio controls autoPlay loop>
+            <source src={openingMusic}  type='audio/mpeg' />
+        </audio>
+        <div className="opening-title">
+          <h1><span className='opening-title__header'>Pokemon</span> Battle Game</h1>
           <Link to='/battle'><button type='button' className='startbutton'>START</button></Link>
+        </div>
       </div>
     )
   }

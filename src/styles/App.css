@@ -32,24 +32,52 @@ body {
   color: black;
 }
 
-#header {
-  font-family: 'Pokemon Solid';
-  text-align: center;
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: #db4848;
-  text-shadow: 1px 1px .5rem black;
-}
-
 .App {
   z-index: -99;
   background-color: #8c8d8f;
 }
 
 .opening {
-  background-image: url("../styles/ashpokemon.jpeg");
+  background-image: url("https://i.gifer.com/BDFB.gif");
   background-size: cover;
   height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.opening-title {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+}
+
+.opening-title__header {
+  font-family: 'Pokemon Solid';
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #db4848;
+  text-shadow: 1px 1px .5rem black;
+  margin-right: .5rem;
+}
+
+.opening-title button {
+  margin-top: 1rem;
+  padding: .75rem;
+  width: 10rem;
+  border-radius: .5rem;
 }
 
 audio {
@@ -61,6 +89,26 @@ audio {
 
 .battlefield {
   position: relative;
+}
+
+.battlefield #header {
+  position: fixed;
+  top: 2rem;
+  right: 43%;
+  z-index: 999;
+  padding: 1rem;
+  border-radius: .5rem;
+  background-color: rgba(255, 255, 255, 0.425);
+  font-family: 'Pokemon Solid';
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #db4848;
+  text-shadow: 1px 1px .5rem black;
+}
+
+.battlefield-duel {
+  position: relative;
   padding: 1rem 5rem 5rem 5rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -68,59 +116,107 @@ audio {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
-.battlefield .background-fire {
+.battlefield-duel .background-fire {
   background-image: url("https://i.gifer.com/UMNG.gif");
   background-position: bottom;
   background-size: cover;
   position: absolute;
   top: 0px;
   left: 0px;
-  opacity: 1;
+  opacity: .5;
   width: 100%;
   height: 100%;
 }
 
-.battlefield .background-water {
+.battlefield-duel .background-water {
   background-image: url("https://pa1.narvii.com/6931/d3c894e2f4a5ebca4264f6794e8173b993291f52r1-500-250_hq.gif");
   background-position: bottom;
   background-size: cover;
   position: absolute;
   top: 0px;
   left: 0px;
-  opacity: 1;
+  opacity: .5;
   width: 100%;
   height: 100%;
 }
 
-.battlefield .background-electric {
+.battlefield-duel .background-electric {
   background-image: url("https://media.giphy.com/media/PGehAVkb6Ghr2/giphy.gif");
   background-position: bottom;
   background-size: cover;
   position: absolute;
   top: 0px;
   left: 0px;
-  opacity: 1;
+  opacity: .5;
   width: 100%;
   height: 100%;
 }
 
-.battlefield .background-default {
-  background-image: url("https://i.imgur.com/mWOT6jS.gif");
+.battlefield-duel .background-flying {
+  background-image: url("http://31.media.tumblr.com/2b8bbac2f1033756e471239d19ed43f1/tumblr_mjohlmeNus1rcv8zio1_500.gif");
   background-position: bottom;
   background-size: cover;
   position: absolute;
   top: 0px;
   left: 0px;
-  opacity: 1;
+  opacity: .5;
   width: 100%;
   height: 100%;
 }
 
-.battlefield .pokemon {
+.battlefield-duel .background-ice {
+  background-image: url("https://c.radikal.ru/c01/1712/fd/7f8a1284d6af.gif");
+  background-position: bottom;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+}
+
+.battlefield-duel .background-ghost {
+  background-image: url("https://i.gifer.com/7iMX.gif");
+  background-position: bottom;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+}
+
+.battlefield-duel .background-ground {
+  background-image: url("https://media.giphy.com/media/haSTcydVxpqxO/giphy.gif");
+  background-position: bottom;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+}
+
+.battlefield-duel .background-default {
+  background-image: url("https://hyperspin-fe.com/uploads/monthly_2018_06/OACf5cL.gif.afd890b2ec2fd7c705633f8408b96e0a.gif");
+  background-position: bottom;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+}
+
+.battlefield-duel .pokemon {
   z-index: 9999;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -134,11 +230,11 @@ audio {
           justify-content: flex-end;
 }
 
-.battlefield .pokemon img {
-  width: 10rem;
+.battlefield-duel .pokemon img {
+  width: 15rem;
 }
 
-.battlefield .pokemon-info {
+.battlefield-duel .pokemon-info {
   padding: 1rem;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.623);
@@ -151,11 +247,11 @@ audio {
           flex-direction: column;
 }
 
-.battlefield .pokemon-info__text {
+.battlefield-duel .pokemon-info__text {
   margin: .20rem 0;
 }
 
-.battlefield .pokemon-info__attack {
+.battlefield-duel .pokemon-info__attack {
   letter-spacing: -2px;
   margin-top: .5rem;
   padding: 0 1rem;
@@ -165,5 +261,14 @@ audio {
   height: 2rem;
   font-size: 1rem;
   font-family: 'Pokemon GB', sans-serif;
+}
+
+#header {
+  font-family: 'Pokemon Solid';
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #db4848;
+  text-shadow: 1px 1px .5rem black;
 }
 /*# sourceMappingURL=App.css.map */
