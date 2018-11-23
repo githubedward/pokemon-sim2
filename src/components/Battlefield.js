@@ -3,11 +3,13 @@ import '../styles/App.css';
 import * as func from './functions';
 import Pokemon from './Pokemon';
 import battleMusic from '../styles/Music/107 - battle.mp3'
+import { Link } from 'react-router-dom'
 
 const baseURL = 'https://pokeapi.co/api/v2';
 
 export default class Battlefield extends Component {
     state = {
+        showPopup: false,
         pokemons: []
     }
 
@@ -50,6 +52,69 @@ export default class Battlefield extends Component {
                 }
             })
         })
+    }
+
+    showPopup = () => {
+        if (!this.state.showPopup) {
+            this.setState({
+                showPopup: true,
+            })
+        }
+    }
+
+    hidePopup = () => {
+        console.log('clicked')
+        if (this.state.showPopup) {
+            this.setState({
+                showPopup: false,
+            })
+        }
+    }
+
+    componentDidUpdate() {
+        if(this.state.pokemon2 && this.state.pokemon1) {
+            setTimeout(() => {
+                if(!this.state.pokemon1.hp) {
+                    func.fetchRequest('GET', `${baseURL}/pokemon/${this.getRandomIndex(150)}/`, (data) => {
+                        this.setState({
+                            pokemon1: {
+                                isTurn: true,
+                                number: 2,
+                                name: data.name,
+                                initialHp: Number(data.stats[5].base_stat),
+                                hp: Number(data.stats[5].base_stat),
+                                baseAtk: Number(data.stats[4].base_stat),
+                                baseDef: Number(data.stats[3].base_stat),
+                                type: data.types[0].type.name,
+                                sprite: data.sprites.back_default,
+                                // moveUrl: data.moves[this.getRandomIndex(data.moves.length - 1)].move.url,
+                                moveUrl: [data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url]
+                            }
+                        });
+                    });
+                    this.showPopup();
+                }else if(!this.state.pokemon2.hp) {
+                    func.fetchRequest('GET', `${baseURL}/pokemon/${this.getRandomIndex(150)}/`, (data) => {
+                        this.setState({
+                            pokemon2: {
+                                isTurn: true,
+                                number: 1,
+                                name: data.name,
+                                initialHp: Number(data.stats[5].base_stat),
+                                hp: Number(data.stats[5].base_stat),
+                                baseAtk: Number(data.stats[4].base_stat),
+                                baseDef: Number(data.stats[3].base_stat),
+                                type: data.types[0].type.name,
+                                sprite: data.sprites.front_default,
+                                // moveUrl: data.moves[this.getRandomIndex(data.moves.length - 1)].move.url,
+                                moveUrl: [data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url, data.moves[this.getRandomIndex(data.moves.length - 1)].move.url]
+                            }
+                        })
+                    })
+                    this.showPopup();
+                }
+            },2000)
+        }
     }
 
     attack = (playerNumber, childPwr) => {
@@ -122,18 +187,59 @@ export default class Battlefield extends Component {
         }
     }
 
+    renderPopUp() {
+        return <div className="gameover">
+            
+            <div className="container">
+                <img src="https://i.imgur.com/q7G3pzv.gif" alt='pikachu'></img>
+                <div className="button-container">
+                    <button type='button' onClick={this.hidePopup}>Try again!</button>
+                    <Link to='/'><button type='button' className='startbutton'>Give up...</button></Link>
+                </div>
+            </div>
+      </div>
+    }
+
     render() {
-        if (this.state.pokemon1 && this.state.pokemon2) {
-            console.log('pokemon1: ', this.state.pokemon1.isTurn);
-            console.log('pokemon2: ', this.state.pokemon2.isTurn);
+
+        let battlearena = '';
+
+        if(this.state.pokemon1) {
+            if(this.state.pokemon1.type === 'water') {
+                battlearena = 'background-water';
+            } else if (this.state.pokemon1.type === 'electric'){
+                battlearena = 'background-electric';
+            } else if (this.state.pokemon1.type === 'fire') {
+                battlearena = 'background-fire';
+            } else if (this.state.pokemon1.type === 'flying') {
+                battlearena = 'background-flying';
+            } else if (this.state.pokemon1.type === 'ghost') {
+                battlearena = 'background-ghost';
+            } else if (this.state.pokemon1.type === 'ground') {
+                battlearena = 'background-ground';
+            } else if (this.state.pokemon1.type === 'ice') {
+                battlearena = 'background-ice';
+            } else {
+                battlearena = 'background-default';
+            }
         }
+
         return (
-            <div className="battlefield">
-                <div className='background'></div>
-                { this.state.pokemon1 ? <Pokemon pokemon={this.state.pokemon1} attack={this.attack} /> : null }
-                { this.state.pokemon2 ? <Pokemon pokemon={this.state.pokemon2} attack={this.attack} /> : null }
+            <div className='battlefield'>
+                { this.state.showPopup ? this.renderPopUp() : null }
+                <Link to='/'>
+                    <button className='battlefield-header'>
+                        <p className='battlefield-header__text'>Pokemon</p>
+                    </button>
+                </Link>
+                <div className="battlefield-duel" >
+                    <div className={battlearena}></div>
+                    { this.state.pokemon1 ? <Pokemon pokemon={this.state.pokemon1} attack={this.attack} /> : null }
+                    { this.state.pokemon2 ? <Pokemon pokemon={this.state.pokemon2} attack={this.attack} /> : null }
+                </div>
+                {/* <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2832420653/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless autoPlay><a href="http://nicholastsemrad.bandcamp.com/album/ratio">RATIO by Nicholas Semrad and expansions of Q</a></iframe> */}
                 <audio controls autoPlay loop>
-                    <source src={battleMusic}  type='audio/mpeg' />
+                        <source src={battleMusic}  type='audio/mpeg' />
                 </audio>
             </div>
         )

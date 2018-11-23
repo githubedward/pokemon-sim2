@@ -22,13 +22,34 @@ export default class Pokemon extends Component {
         }))
     }
 
-    componentDidUpdate(prevProps) {
-        // debugger;
+    componentDidUpdate(prevProps, prevState) {
+        const { pokemon } = this.props;
         if (prevProps.pokemon.isTurn !== this.props.pokemon.isTurn) {
             console.log(`pokemon-${this.state.number}'s turn!`);
             this.setState({
                 isTurn: this.props.pokemon.isTurn  
             })
+        }
+        // if(prevProps.pokemon.name !== this.props.pokemon.name) {
+        //     console.log(`${prevProps.pokemon.name} has retreated`);
+        //     const { moveUrl } = this.props.pokemon;
+        //     let promiseArray = moveUrl.map((url) => fetch(url));
+        //     Promise.all(promiseArray)
+        //     .then((respArray) => Promise.all(respArray.map(resp => resp.json())))
+        //     .then((dataArray) => this.setState({
+        //         // isTurn: true,
+        //         moves: dataArray
+        //     }))
+        // }
+
+        if(prevProps.pokemon.name !== pokemon.name) {
+            const { moveUrl } = pokemon;
+            let promiseArray = moveUrl.map((url) => fetch(url));
+            Promise.all(promiseArray)
+            .then((respArray) => Promise.all(respArray.map(resp => resp.json())))
+            .then((dataArray) => this.setState({
+                moves: dataArray
+            }))
         }
     }
 

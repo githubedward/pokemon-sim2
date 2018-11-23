@@ -1,5 +1,16 @@
 @import './fonts/fonts.scss';
 
+@mixin background {
+    background-position: bottom;
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: .4;
+    width: 100%;
+    height: 100%
+}
+
 * {
     margin: 0;
 }
@@ -17,6 +28,167 @@ body {
     color: black;
 }
 
+.App {
+    z-index: -99;
+    background-color: rgb(140, 141, 143);
+    // padding: 1rem 5rem 5rem 5rem;
+    // height: 100vh;
+    // width: 100vw;
+}
+.opening {
+    background-image: url('https://i.gifer.com/BDFB.gif');
+    background-size: cover;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    &-title {
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: 5px;
+
+        &__header {
+            font-family: 'Pokemon Solid';
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #db4848;
+            text-shadow: 1px 1px .5rem black; 
+            margin-right: .5rem;
+        }
+
+        button {
+            margin-top: 1rem;
+            padding: .75rem;
+            width: 10rem;
+            border-radius: .2rem;
+            font-family: 'Pokemon GB', sans-serif;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+audio {
+    position: absolute;
+    height: 2rem;
+    top: 1rem;
+    visibility: hidden;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.battlefield {
+    position: relative;
+
+    &-header {
+        position: fixed;
+        top: 2rem;
+        left: 2rem;
+        z-index: 999;
+        // padding: 1rem;
+        border-radius: .5rem;
+        border: none;
+        background-color: transparent;
+        font-family: 'Pokemon Solid';
+        text-align: center;
+        font-size: 2rem;
+        
+
+        &__text {
+            color: #db4848;
+            text-shadow: 1px 1px .5rem black; 
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.507);
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+    
+    &-duel {
+        position: relative;
+        // padding: 2rem;
+        padding: 1rem 5rem 5rem 5rem;
+        display: flex;
+        justify-content: space-between;
+        height: 100vh;
+        width: 100vw;
+    
+        .background-fire {
+            background-image: url('https://i.gifer.com/UMNG.gif');
+            @include background;
+        }
+        .background-water {
+            background-image: url('https://pa1.narvii.com/6931/d3c894e2f4a5ebca4264f6794e8173b993291f52r1-500-250_hq.gif');
+            @include background;
+        }
+        .background-electric {
+            background-image: url('https://media.giphy.com/media/PGehAVkb6Ghr2/giphy.gif');
+            @include background;
+        }
+        .background-flying {
+            background-image: url('https://media.moddb.com/images/groups/1/25/24269/ezgif-3-93e2f78df3.gif');
+            @include background;
+        }
+        .background-ice {
+            background-image: url('https://i.gifer.com/1euQ.gif');
+            @include background;
+        }
+        .background-ghost {
+            background-image: url('https://i.gifer.com/7iMX.gif');
+            @include background;
+        }
+        .background-ground {
+            background-image: url('https://media.giphy.com/media/haSTcydVxpqxO/giphy.gif');
+            @include background;
+        }
+        .background-default {
+            background-image: url('https://hyperspin-fe.com/uploads/monthly_2018_06/OACf5cL.gif.afd890b2ec2fd7c705633f8408b96e0a.gif');
+            @include background;
+        }  
+        .pokemon {
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            img {
+                width: 15rem;
+            }
+            &-info {
+                padding: 1rem;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.623);
+                display: flex;
+                flex-direction: column;
+                &__text {
+                    margin: .20rem 0;
+                }
+                &__attack {
+                    letter-spacing: -2px;
+                    margin-top: .5rem;
+                    padding: 0 1rem;
+                    width: fit-content;
+                    height: 2rem;
+                    font-size: 1rem;
+                    font-family: 'Pokemon GB', sans-serif;
+                }
+            }
+        }
+    }
+}
+
 #header {
     font-family: 'Pokemon Solid';
     text-align: center;
@@ -26,78 +198,56 @@ body {
     text-shadow: 1px 1px .5rem black; 
 }
 
-.App {
-    background-color: rgb(140, 141, 143);
-    padding: 1rem 5rem 5rem 5rem;
-    // height: 100vh;
-    // width: 100vw;
-}
+.gameover {
+    transition-timing-function: linear;
+    transition-timing-function: cubic-bezier(0, 0, 1, 1);
 
-.battlefield {
-    position: relative;
-    padding: 2rem;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 99999;
+    background-color: rgba(255, 255, 255, 0.8);
     display: flex;
-    justify-content: space-between;
-    height: 100%;
-    width: 100%;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 1px 1px .5rem black; 
 
-    audio {
-        position: absolute;
-        bottom: -10rem;
-        visibility: hidden;
-    }
-
-    .background {
-        background-image: url('https://i.imgur.com/mWOT6jS.gif');
-        background-position: bottom;
-        background-size: cover;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        opacity: .50;
-        width: 100%;
-        height: 100%
-    }
-
-    // .pokemon:nth-child(2) {
-    //     align-self: flex-end;
-    // }
-
-    // .pokemon:nth-child(3) {
-    //     text-align: right;
-    // }
-
-    .pokemon {
-        z-index: 9999;
+    .container {
+        padding: 1rem;
+        background: #db4848;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
-        img {
-            width: 10rem;
-        }
-        &-info {
-            padding: 1rem;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.623);
-            display: flex;
-            flex-direction: column;
-            &__text {
-                margin: .20rem 0;
-            }
-            &__attack {
-                letter-spacing: -2px;
-                margin-top: .5rem;
-                padding: 0 1rem;
-                width: fit-content;
-                height: 2rem;
-                font-size: 1rem;
-                font-family: 'Pokemon GB', sans-serif;
+        object-fit: cover;
+        justify-content: center;
+        border-radius: 10px;
+        // height: 35rem;
 
-                &--disabled {
-                    color: gray;
+        img {
+            object-fit: cover;
+            margin-bottom: .5rem;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            button {
+                margin: .5rem;
+                padding: .75rem;
+                width: 15rem;
+                border-radius: .2rem;
+                font-family: 'Pokemon GB', sans-serif;
+                font-size: 1rem;
+                background: white;
+    
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(255, 255, 255, 0.377);
                 }
             }
         }
     }
 }
 
+button:hover{
+    cursor: pointer;
+    background-color: rgba(87, 69, 69, 0.253);
+}
